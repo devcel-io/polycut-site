@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -9,15 +9,33 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "PolyCut - Draw. Label. Export.",
+  description:
+    "PolyCut helps you annotate images on iPad with Apple Pencil and export COCO or Roboflow-ready datasets for training pipelines.",
+  openGraph: {
+    title: "PolyCut - Draw. Label. Export.",
+    description:
+      "Annotate images on iPad with Apple Pencil, assisted segmentation, offline tools, and COCO or Roboflow export.",
+    url: "/",
+    siteName: "PolyCut",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "PolyCut - Draw. Label. Export.",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PolyCut - Draw. Label. Export.",
+    description:
+      "iPad-first image annotation with Apple Pencil, SAM2, GrabCut, offline tools, and COCO or Roboflow export.",
+    images: ["/og.png"],
+  },
 };
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  display: "swap",
-  subsets: ["latin"],
-});
 
 export default function RootLayout({
   children,
@@ -26,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
+      <body className="font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -35,6 +53,7 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
