@@ -51,7 +51,7 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
     <div
       ref={containerRef}
       className={cn(
-        "relative aspect-video overflow-hidden border-4 border-[#f579c2] bg-[#171021] shadow-[0_24px_80px_rgba(245,121,194,0.22)]",
+        "relative aspect-video w-full max-w-full overflow-hidden border-4 border-[#f579c2] bg-[#171021] shadow-[0_24px_80px_rgba(245,121,194,0.22)]",
         className,
       )}
     >

@@ -90,7 +90,7 @@ export default function Home() {
           <HeroVideo
             src="/videos/polycut-hero-demo.mp4"
             poster="/videos/polycut-hero-poster.jpg"
-            className="min-h-64 sm:min-h-80"
+            className="max-w-2xl lg:max-w-none"
           />
         </div>
       </section>
