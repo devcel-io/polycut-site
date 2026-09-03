@@ -13,6 +13,7 @@ type HeroVideoProps = {
 
 export function HeroVideo({ src, poster, className }: HeroVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -38,6 +39,14 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!shouldLoad) {
+      return;
+    }
+
+    void videoRef.current?.play().catch(() => undefined);
+  }, [shouldLoad]);
+
   return (
     <div
       ref={containerRef}
@@ -59,14 +68,18 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
       />
       {shouldLoad ? (
         <video
+          ref={videoRef}
           aria-label="PolyCut demo showing Apple Pencil image annotation"
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           poster={poster}
-          onLoadedData={() => setIsLoaded(true)}
+          onCanPlay={(event) => {
+            setIsLoaded(true);
+            void event.currentTarget.play().catch(() => undefined);
+          }}
           className={cn(
             "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
             isLoaded ? "opacity-100" : "opacity-0",
