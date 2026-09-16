@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/next";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
+  metadataBase: new URL(siteUrl),
   title: "PolyCut - Draw. Label. Export.",
   description:
     "PolyCut helps you annotate images on iPad with Apple Pencil and export COCO or Roboflow-ready datasets for training pipelines.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "PolyCut - Draw. Label. Export.",
     description:
